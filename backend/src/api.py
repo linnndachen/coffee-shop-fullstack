@@ -49,11 +49,10 @@ def public_drinks():
 @requires_auth('get:drinks-detail')
 def drinks_detail():
     try:
-        all_drink = Drink.query.all()
-        drinks = all_drink.long()
+        all_drinks = Drink.query.all()
         return jsonify({
             'success': True,
-            'drinks': drinks
+            'drinks': [drink.long() for drink in all_drinks]
         }), 200
     except:
         abort(500)
