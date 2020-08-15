@@ -119,10 +119,10 @@ def update_drinks(id):
         new_drink = request.get_json()
         drink = Drink.query.filter(Drink.id == id).one_or_none()
         if drink:
-            drink.title = new_drink['title'] if new_drink['title']
-            else drink.title
-            drink.recipe = new_drink['recipe'] if new_drink['recipe']
-            else drink.recipe
+            drink.title = (new_drink['title'] if new_drink['title']
+                           else drink.title)
+            drink.recipe = (new_drink['recipe'] if new_drink['recipe']
+                            else drink.recipe)
 
             drink.update()
         else:
