@@ -55,7 +55,7 @@ def public_drinks():
 
 @app.route('/drinks-detail', methods=['GET'])
 @requires_auth('get:drinks-detail')
-def drinks_detail():
+def drinks_detail(payload):
     try:
         all_drinks = Drink.query.all()
         return jsonify({
@@ -80,7 +80,7 @@ def drinks_detail():
 
 @app.route('/drinks', methods=['POST'])
 @requires_auth('post:drinks')
-def add_drinks():
+def add_drinks(payload):
     try:
         data = request.get_json()
         drink = Drink(
@@ -114,7 +114,7 @@ def add_drinks():
 
 @app.route('/drinks/<int:id>', methods=['PATCH'])
 @requires_auth('patch:drinks')
-def update_drinks(id):
+def update_drinks(payload, id):
     try:
         new_drink = request.get_json()
         drink = Drink.query.filter(Drink.id == id).one_or_none()
@@ -150,7 +150,7 @@ def update_drinks(id):
 
 @app.route('/drinks/<int:id>', methods=['DELETE'])
 @requires_auth('delete:drinks')
-def delete_drinks(id):
+def delete_drinks(payload, id):
     try:
         drink = Drink.query.filter(Drink.id == id).one_or_none()
         if drink:
